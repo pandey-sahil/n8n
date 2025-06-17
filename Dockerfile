@@ -1,22 +1,22 @@
-FROM node:18
+FROM node:22.16.0
 
-# Install pnpm globally
+# Install pnpm and turbo globally
 RUN npm install -g pnpm turbo
 
-# Set workdir
+# Set working directory
 WORKDIR /app
 
-# Copy everything
+# Copy all files
 COPY . .
 
-# Install dependencies for the monorepo
+# Install dependencies (monorepo-aware)
 RUN pnpm install --frozen-lockfile
 
-# Build all packages using turbo
+# Build everything
 RUN turbo run build
 
-# Expose the port n8n runs on
+# Expose default n8n port
 EXPOSE 5678
 
-# Start n8n from built packages
+# Start n8n
 CMD ["pnpm", "start"]
