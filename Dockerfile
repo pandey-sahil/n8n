@@ -1,18 +1,19 @@
-FROM node:22.16.0
-
-# Install pnpm and turbo globally
-RUN npm install -g pnpm turbo
+# Use Node 22 as required by n8n
+FROM node:22.2.0
 
 # Set working directory
 WORKDIR /app
 
-# Copy all files
+# Install pnpm & turbo globally
+RUN npm install -g pnpm turbo
+
+# Copy project files
 COPY . .
 
-# Install dependencies (monorepo-aware)
-RUN pnpm install 
+# Install dependencies
+RUN pnpm install
 
-# Build everything
+# Build all packages (monorepo)
 RUN turbo run build
 
 # Expose default n8n port
