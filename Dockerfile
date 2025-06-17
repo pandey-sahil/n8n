@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies (monorepo-aware)
-RUN pnpm install --frozen-lockfile
+RUN pnpm install 
 
 # Build everything
 RUN turbo run build
